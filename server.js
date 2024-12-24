@@ -15,7 +15,6 @@ const allowedOrigins = [
     'http://localhost:5173',          // local dev server
     'https://message.gallerysoma.co.kr',       // prod domain 1
   ];
-  
 
 // CORS 
 app.use(cors({
@@ -34,6 +33,7 @@ app.use(cors({
     credentials: true, 
   }));
 
+
 // body-parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,6 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/upload', awsUpload); // awsUpload router mounted at /upload
 app.use('/send-message', sendMessageRoute); // sendMessageRoute router mounted at /send-message
 
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
 
 // Verify Token endpoint
 app.get('/verify-token', async (req, res) => {
